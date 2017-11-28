@@ -1,0 +1,82 @@
+/**
+* @author Robert Ibram
+* Takes a CSV file delimited by TAB characters as input
+* Writes all the lines in a CSV file delimited by commas
+*
+* Specifically written for an assignment containing a file with 1.4 million lines
+*  
+* TODO:
+* To continue the program as per the assignment, a HashMap or MultiMap by Google Guava
+* must be used in order to set the key as "client_id". 
+*
+* For each key we assign the values of "song_id" skipping any duplicate song_id
+*
+* Then we count the the values for each key to find out the number of unique songs played
+*
+*/
+
+package transform;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class csv {
+    public static void main(String[] args) {
+        File input = new File("C:\\Users\\ribram\\Desktop\\exhibitA-input.csv"); 
+        List<String> processedLines = new ArrayList<String>();
+
+        try {
+            BufferedReader buffer = new BufferedReader(new FileReader(input)); 
+            String line; 
+            StringBuilder builder; 
+            while((line = buffer.readLine()) != null) {
+                builder = new StringBuilder(line); 
+
+                //for each line, find all indexes of "TAB character"
+                int index = builder.indexOf("\t");
+
+                //previous used to when there is consecutive "TAB character"
+                int prevIndex = 0; 
+
+                while (index >= 0) {
+
+                    builder.setCharAt(index, ','); 
+
+                    //get next index of "TAB character"
+                    index = builder.indexOf("\t", index + 1);
+
+                    //check for consecutive "TAB characters"
+                    if(index != -1 && (prevIndex +1) == index) {
+                        builder.setCharAt(index, ' ');
+                        //get next index of "TAB character"
+                        index = builder.indexOf("\t", index + 1);
+                    }
+                }
+
+                //store the line into a list of lines to be printed in an output file later
+                processedLines.add(builder.toString());
+            }
+
+            //close the input stream
+            buffer.close(); 
+
+            //write all lines to the output file
+            File output = new File("C:\\Users\\ribram\\Desktop\\csv_processed.txt");
+            PrintWriter paste = new PrintWriter(output); 
+            for(int i = 0; i < processedLines.size(); i++) {
+            	paste.println(processedLines.get(i));
+            }
+            
+           //close the output stream
+            paste.close(); 
+            
+        } catch(Exception error) {
+            //print a message if an exception was caught (for example the file does not exist)
+        	System.out.println("Something went wrong :(");
+        }
+    }
+}
