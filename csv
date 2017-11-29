@@ -12,6 +12,14 @@
 * For each key we assign the values of "song_id" skipping any duplicate song_id
 *
 * Then we count the the values for each key to find out the number of unique songs played
+* As the file is pre-formatted as CSV, the 3rd value is the client_id and the 2nd value is the song_id
+* Pseudocode will be:
+* read the file line by line
+*   on each line map the client_id as the key (using Google Guava for example)
+*       on each line map the value of song_id to the customer
+* count each value under each key
+* 
+* For duplicates, we can remove them during count or during Hash Map assignment
 *
 */
 
