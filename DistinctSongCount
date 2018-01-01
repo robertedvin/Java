@@ -6,6 +6,19 @@
 * It counts how many users played 346 distinct songs and
 * what is the maximum number of distinct songs  played.
 *
+*
+* Efficiency:
+* • HashMap is a class that implements a map.
+* • The (key,value) pairs of the map are stored using a
+*   hash table (more about this soon).
+* • Advantages:
+* - The HashMap supports search, insert, and remove operations in O(1) expected time.
+* • Disadvantages:
+* - Traversals (using an iterator) cannot be done in a meaningful way with a HashMap
+*
+* A set is a collection of objects that contains no duplicates.
+* • The index of each element in the set is notimportant.
+* • The presence of the element is important. 
 * ----------------------------------------------------------------------------------
 *
 * The output of the program is:
