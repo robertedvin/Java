@@ -79,7 +79,7 @@ public class DistinctPlayCount {
 		            distinctSongsPerClient.put(clientId, new HashSet<>());
 		        }
 		        distinctSongsPerClient.get(clientId).add(songId);
-         	}
+		    }
 		}
 		
     		// Do the necessary calculations
@@ -94,9 +94,9 @@ public class DistinctPlayCount {
 		    
 			// Count the number of maximum distinct songs played
 			if (maxPlayed == 0 || distinctSongsPerClient.get(clientId).size() > maxPlayed)
-		    {
+		    	{
 				maxPlayed = distinctSongsPerClient.get(clientId).size();
-		    }
+			}
 		}
 		
 		// Display number of clients who played 346 unique songs (Result: 22)
