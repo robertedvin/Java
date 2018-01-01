@@ -1,0 +1,115 @@
+/**
+* @author Robert Ibram
+* Specifically written for an assignment containing a file with 1.4 million lines
+* 
+*
+* It counts how many users played 346 distinct songs and
+* what is the maximum number of distinct songs  played.
+*
+* ----------------------------------------------------------------------------------
+*
+* The output of the program is:
+* 
+* The number of clients who played 346 different songs is: 22
+* Maximum number of distinct songs played is: : 393
+* Execution time is 2.54600 seconds
+*
+*/
+
+
+package distinctSongs;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+
+public class DistinctPlayCount {
+
+	public static void main(String[] args) {
+		
+		// Variable for running time calculations
+		long start = System.currentTimeMillis();
+		
+		// Declaring variables
+		ArrayList<String> linesList = new ArrayList<>();
+		Map<String, Set<String>> distinctSongsPerClient = new HashMap<String, Set<String>>();
+		int clientCount = 0;
+		int maxPlayed = 0;
+		
+		// Input of file which needs to be parsed
+		String csvFile = "exhibitAinput.csv";
+		BufferedReader csvReader;
+
+		// Specify how the data is split in CSV file
+		// by 'TAB' in this case
+		String csvSplitBy = "\t";
+		try {
+		    // Read the CSV file into an ArrayList array for easy processing.
+		    String line;
+		    csvReader = new BufferedReader(new FileReader(csvFile));
+		    while ((line = csvReader.readLine()) !=null) {
+		        linesList.add(line);
+		    }
+		    csvReader.close();
+		}
+		catch (IOException e) { e.printStackTrace(); }
+
+		// Process each CSV file line which is now contained within
+		// the linesList list Array
+		// Start from 1 to skip the first line
+		for (int i = 1; i < linesList.size(); i++) {
+		    String[] data = linesList.get(i).split(csvSplitBy);
+		    String songId = data[1];
+		    String clientId = data[2];
+		    String timestamp = data[3];
+		    
+		    // Determine if column 4 (timestamp) contains the desired date
+		    // and create the hash set
+		    if (timestamp.contains("10/08/2016"))  {
+		        if (!distinctSongsPerClient.containsKey(clientId)) {
+		            distinctSongsPerClient.put(clientId, new HashSet<>());
+		        }
+		        distinctSongsPerClient.get(clientId).add(songId);
+         	}
+		}
+		
+    // Do the necessary calculations
+		for (final String clientId : distinctSongsPerClient.keySet()) {
+			if (distinctSongsPerClient.get(clientId).size() == 346){
+				// To print client ID uncomment the below line: 
+				//System.out.println(clientId + ": " + distinctProductsPerClient.get(clientId).size());
+				
+				// Count the number of clients having played 346 distinct songs
+				clientCount++;
+			}
+		    
+			// Count the number of maximum distinct songs played
+			if (maxPlayed == 0 || distinctSongsPerClient.get(clientId).size() > maxPlayed)
+		    {
+				maxPlayed = distinctSongsPerClient.get(clientId).size();
+		    }
+		}
+		
+		// Display number of clients who played 346 unique songs (Result: 22)
+		System.out.println("The number of clients who played 346 different songs is: " + clientCount);
+		
+		// Will display the maximum number of distinct songs played (Result: 393)
+		System.out.println("Maximum number of distinct songs played is: : " + maxPlayed);
+		
+		// Variable to calculate running time duration
+		long end = System.currentTimeMillis();
+		NumberFormat formatter = new DecimalFormat("#0.00000");
+		
+		// Show running time duration
+		System.out.print("Execution time is " + formatter.format((end - start) / 1000d) + " seconds");
+	}
+}
