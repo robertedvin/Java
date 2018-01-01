@@ -9,8 +9,7 @@
 *
 * Efficiency:
 * • HashMap is a class that implements a map.
-* • The (key,value) pairs of the map are stored using a
-*   hash table (more about this soon).
+* • The (key,value) pairs of the map are stored using a hash table.
 * • Advantages:
 * - The HashMap supports search, insert, and remove operations in O(1) expected time.
 * • Disadvantages:
