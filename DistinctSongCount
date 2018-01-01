@@ -16,7 +16,7 @@
 * - Traversals (using an iterator) cannot be done in a meaningful way with a HashMap
 *
 * A set is a collection of objects that contains no duplicates.
-* • The index of each element in the set is notimportant.
+* • The index of each element in the set is not important.
 * • The presence of the element is important. 
 * ----------------------------------------------------------------------------------
 *
